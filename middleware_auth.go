@@ -15,13 +15,13 @@ func (ApiCfg *apiConfig) middlewareAuth(handler authedHandler) http.HandlerFunc 
 
 		apiKey, err := auth.GetAPIKey(r.Header)
 		if err != nil {
-			respondWithError(w, 403, fmt.Sprintf("Auth Error: %v", err))
+			respondWithError(w, 403, fmt.Sprintf("auth Error: %v", err))
 			return
 		}
 
 		user, err := ApiCfg.DB.GetUserByAPIKey(r.Context(), apiKey)
 		if err != nil {
-			respondWithError(w, 403, "Invalid API Key")
+			respondWithError(w, 403, "invalid API Key")
 			return
 		}
 		handler(w, r, user)
